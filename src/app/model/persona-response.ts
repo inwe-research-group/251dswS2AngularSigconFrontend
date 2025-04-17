@@ -7,7 +7,7 @@ export interface IPersonaResponse {
   apellidoMaterno: string;
   nombres: string;
   fechaNacimiento: Date;
-  nDocumento: string;
+  ndocumento: string;
   direccion: string;
   tipoDocumento: ITipoDocumento;
   ubigeo: IUbigeo;

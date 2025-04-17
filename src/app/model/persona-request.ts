@@ -5,7 +5,7 @@ export interface IPersonaRequest {
   nombres: string;
   fechaNacimiento: Date;
   idTipoDocumento: number;
-  nDocumento: string;
+  ndocumento: string;
   direccion: string;
   idUbigeo: string;
 }
