@@ -14,6 +14,7 @@ export class PersonaService {
     return this.http.get<IPersonaResponse[]>(`${BASE_URL}/persona`);
   }
   registrarPersona(persona: IPersonaRequest): Observable<IPersonaResponse> {
+    console.log(persona);
     return this.http.post<IPersonaResponse>(`${BASE_URL}/persona`, persona);
   }
   eliminarPersona(persona: IPersonaRequest): Observable<IPersonaResponse> {

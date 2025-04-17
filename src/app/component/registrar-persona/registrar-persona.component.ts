@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { IPersonaRequest } from '../../model/persona-request';
 
 @Component({
   selector: 'app-registrar-persona',
@@ -19,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class RegistrarPersonaComponent {
   personaArray: IPersonaResponse[] = [];
+  personaRequest: IPersonaRequest = {} as IPersonaRequest;
   personaForm: FormGroup;
   page: number = 1;
   constructor(private personaService: PersonaService) {
@@ -51,5 +53,31 @@ export class RegistrarPersonaComponent {
       //console.log('Result', result);
       this.personaArray = result;
     });
+  }
+  setPersonaRequest(): void {
+    this.personaRequest.idPersona = this.personaForm.get('idPersona')?.value;
+    this.personaRequest.apellidoPaterno =
+      this.personaForm.get('apellidoPaterno')?.value;
+    this.personaRequest.apellidoMaterno =
+      this.personaForm.get('apellidoMaterno')?.value;
+    this.personaRequest.nombres = this.personaForm.get('nombres')?.value;
+    this.personaRequest.fechaNacimiento =
+      this.personaForm.get('fechaNacimiento')?.value;
+    this.personaRequest.idTipoDocumento =
+      this.personaForm.get('idTipoDocumento')?.value;
+    this.personaRequest.ndocumento = this.personaForm.get('ndocumento')?.value;
+    this.personaRequest.direccion = this.personaForm.get('direccion')?.value;
+    this.personaRequest.idUbigeo = this.personaForm.get('direccion')?.value;
+  }
+  registrarPersona(): void {
+    this.setPersonaRequest;
+    //console.log('personaRequest', this.personaRequest);
+    console.log('apellidoPaterno', this.personaRequest.apellidoPaterno);
+    /*
+    this.personaService
+      .registrarPersona(this.personaRequest)
+      .subscribe((result: any) => {
+        this.ngOnInit();
+      });*/
   }
 }
