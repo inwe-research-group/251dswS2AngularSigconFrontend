@@ -36,6 +36,11 @@ export class RegistrarPersonaComponent {
         Validators.required,
         Validators.minLength(4),
       ]),
+      fechaNacimiento: new FormControl('', [Validators.required]),
+      idTipoDocumento: new FormControl('1', [Validators.required]),
+      ndocumento: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required]),
+      idUbigeo: new FormControl('150101', [Validators.required]),
     });
   }
   ngOnInit(): void {

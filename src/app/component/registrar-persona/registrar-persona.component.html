@@ -3,39 +3,120 @@
     <div class="card">
       <div class="card-body">
         <form class="form-group" [formGroup]="personaForm">
-          <div class="mb-3">
-            <label for="apellidoPaterno" class="form-label"
-              >Apellido Paterno</label
+          <div class="row mb-2">
+            <label for="apellidoPaterno" class="col-form-label col-sm-2"
+              >Apellido Paterno:</label
             >
-            <input
-              type="text"
-              class="form-control"
-              id="apellidoPaterno"
-              placeholder="Apellido Paterno"
-              formControlName="apellidoPaterno"
-            />
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="apellidoPaterno"
+                placeholder="Apellido Paterno"
+                formControlName="apellidoPaterno"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="apellidoMaterno" class="form-label"
-              >Apellido Materno</label
+          <div class="row mb-2">
+            <label for="apellidoMaterno" class="col-form-label col-sm-2"
+              >Apellido Materno:</label
             >
-            <input
-              type="text"
-              class="form-control"
-              id="apellidoMaterno"
-              placeholder="Apellido Materno"
-              formControlName="apellidoMaterno"
-            />
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="apellidoMaterno"
+                placeholder="Apellido Materno"
+                formControlName="apellidoMaterno"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="nombres" class="form-label">Nombres</label>
-            <input
-              type="text"
-              class="form-control"
-              id="nombres"
-              placeholder="Nombres"
-              formControlName="nombres"
-            />
+          <div class="row mb-2">
+            <label for="nombres" class="col-form-label col-sm-2"
+              >Nombres:</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="nombres"
+                placeholder="Nombres"
+                formControlName="nombres"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <label for="fechaNacimiento" class="col-form-label col-sm-2"
+              >Fecha Nac.</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="date"
+                class="form-control"
+                id="fechaNacimiento"
+                placeholder="fechaNacimiento"
+                formControlName="fechaNacimiento"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="idTipoDocumento" class="col-form-label col-sm-2"
+              >Tipo Documento</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="idTipoDocumento"
+                placeholder="tipoDocumento"
+                formControlName="idTipoDocumento"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="ndocumento" class="col-form-label col-sm-2"
+              >N° Documento</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="ndocumento"
+                placeholder="N° documento"
+                formControlName="ndocumento"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <label for="direccion" class="col-form-label col-sm-2"
+              >Direccion:</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="direccion"
+                placeholder="Direccion"
+                formControlName="direccion"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <label for="idUbigeo" class="col-form-label col-sm-2"
+              >Ubigeo:</label
+            >
+            <div class="col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="idUbigeo"
+                placeholder="Ubigeo"
+                formControlName="idUbigeo"
+              />
+            </div>
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
