@@ -1,18 +1,80 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Apellido Paterno</th>
-      <th scope="col">Apellido Materno</th>
-      <th scope="col">Nombres</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let persona of personaArray; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ persona.apellidoPaterno }}</td>
-      <td>{{ persona.apellidoMaterno }}</td>
-      <td>{{ persona.nombres }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-lg">
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <form class="form-group" [formGroup]="personaForm">
+          <div class="mb-3">
+            <label for="apellidoPaterno" class="form-label"
+              >Apellido Paterno</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoPaterno"
+              placeholder="Apellido Paterno"
+              formControlName="apellidoPaterno"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="apellidoMaterno" class="form-label"
+              >Apellido Materno</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoMaterno"
+              placeholder="Apellido Materno"
+              formControlName="apellidoMaterno"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="nombres" class="form-label">Nombres</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombres"
+              placeholder="Nombres"
+              formControlName="nombres"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Apellido Paterno</th>
+              <th scope="col">Apellido Materno</th>
+              <th scope="col">Nombres</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let persona of personaArray
+                  | paginate : { itemsPerPage: 10, currentPage: page };
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ persona.apellidoPaterno }}</td>
+              <td>{{ persona.apellidoMaterno }}</td>
+              <td>{{ persona.nombres }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls
+          (pageChange)="page = $event"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

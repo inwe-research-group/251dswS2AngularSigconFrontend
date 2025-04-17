@@ -8,17 +8,19 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-registrar-persona',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './registrar-persona.component.html',
   styleUrl: './registrar-persona.component.css',
 })
 export class RegistrarPersonaComponent {
   personaArray: IPersonaResponse[] = [];
   personaForm: FormGroup;
+  page: number = 1;
   constructor(private personaService: PersonaService) {
     this.personaForm = new FormGroup({
       idPersona: new FormControl(''),
@@ -41,7 +43,7 @@ export class RegistrarPersonaComponent {
   }
   getPersonas(): void {
     this.personaService.getPersonas().subscribe((result: any) => {
-      console.log('Result', result);
+      //console.log('Result', result);
       this.personaArray = result;
     });
   }
