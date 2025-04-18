@@ -67,17 +67,15 @@ export class RegistrarPersonaComponent {
       this.personaForm.get('idTipoDocumento')?.value;
     this.personaRequest.ndocumento = this.personaForm.get('ndocumento')?.value;
     this.personaRequest.direccion = this.personaForm.get('direccion')?.value;
-    this.personaRequest.idUbigeo = this.personaForm.get('direccion')?.value;
+    this.personaRequest.idUbigeo = this.personaForm.get('idUbigeo')?.value;
   }
   registrarPersona(): void {
-    this.setPersonaRequest;
-    //console.log('personaRequest', this.personaRequest);
-    console.log('apellidoPaterno', this.personaRequest.apellidoPaterno);
-    /*
+    this.setPersonaRequest();
+    console.log('personaRequest', this.personaRequest);
     this.personaService
       .registrarPersona(this.personaRequest)
       .subscribe((result: any) => {
         this.ngOnInit();
-      });*/
+      });
   }
 }
