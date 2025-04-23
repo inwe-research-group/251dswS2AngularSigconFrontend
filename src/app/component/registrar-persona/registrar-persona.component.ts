@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IPersonaRequest } from '../../model/persona-request';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrar-persona',
@@ -72,10 +73,34 @@ export class RegistrarPersonaComponent {
   registrarPersona(): void {
     this.setPersonaRequest();
     console.log('personaRequest', this.personaRequest);
-    this.personaService
-      .registrarPersona(this.personaRequest)
-      .subscribe((result: any) => {
-        this.ngOnInit();
-      });
-  }
+    Swal.fire({
+      title: 'Esta seguro de registrar los datos de la persona?',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+      focusCancel: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personaService.registrarPersona(this.personaRequest).subscribe(
+          (result: any) => {
+            this.ngOnInit();
+            Swal.close();
+            Swal.fire({
+              icon: 'success',
+              title: 'registrarPersona....',
+              text: '!Se registro exitosamente los datos de la persona!',
+            });
+          },
+          (err: any) => {
+            Swal.close();
+            Swal.fire({
+              icon: 'error',
+              title: 'Advertencia....',
+              text: '!Ah ocurrido un error al resgitrar persona!',
+            });
+          } //cierre del error
+        ); //cierre del subscribe
+      }
+    });
+  } //cierre del metodo registrarPersona
 }
