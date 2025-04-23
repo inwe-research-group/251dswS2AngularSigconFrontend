@@ -96,11 +96,45 @@ export class RegistrarPersonaComponent {
             Swal.fire({
               icon: 'error',
               title: 'Advertencia....',
-              text: '!Ah ocurrido un error al resgitrar persona!',
+              text: '!Ah ocurrido un error al registrar persona!',
             });
           } //cierre del error
         ); //cierre del subscribe
       }
     });
   } //cierre del metodo registrarPersona
+
+  eliminarPersona(personaResponse: IPersonaResponse): void {
+    this.personaRequest.idPersona = personaResponse.idPersona;
+    Swal.fire({
+      title: 'Esta seguro de eliminar la persona seleccionada?',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+      focusCancel: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personaService.eliminarPersona(this.personaRequest).subscribe(
+          (result: any) => {
+            console.log('eliminarPersona', result);
+            this.ngOnInit();
+            Swal.close();
+            Swal.fire({
+              icon: 'success',
+              title: 'eliminarPersona....',
+              text: '!Se eliminó exitosamente la persona seleccionada!',
+            });
+          },
+          (err: any) => {
+            Swal.close();
+            Swal.fire({
+              icon: 'error',
+              title: 'Advertencia....',
+              text: '!Ah ocurrido un error al eliminar persona!',
+            });
+          } //cierre del error
+        );
+      }
+    });
+  }
 }
