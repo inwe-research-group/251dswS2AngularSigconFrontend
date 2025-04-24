@@ -24,6 +24,7 @@ export class RegistrarPersonaComponent {
   personaRequest: IPersonaRequest = {} as IPersonaRequest;
   personaForm: FormGroup;
   page: number = 1;
+  isEdited: boolean = false;
   constructor(private personaService: PersonaService) {
     this.personaForm = new FormGroup({
       idPersona: new FormControl(''),
@@ -47,7 +48,11 @@ export class RegistrarPersonaComponent {
     });
   }
   ngOnInit(): void {
+    this.isEdited = false;
+    this.personaForm.reset();
     this.getPersonas();
+    this.personaForm.controls['idTipoDocumento'].setValue(1);
+    this.personaForm.controls['idUbigeo'].setValue('150101');
   }
   getPersonas(): void {
     this.personaService.getPersonas().subscribe((result: any) => {
@@ -71,6 +76,34 @@ export class RegistrarPersonaComponent {
     this.personaRequest.idUbigeo = this.personaForm.get('idUbigeo')?.value;
   }
   registrarPersona(): void {
+    this.setPersonaRequest();
+    if (this.isEdited) this.actualizarPersona();
+    else this.insertarPersona();
+  }
+
+  actualizarPersona(): void {
+    this.personaService.actualizarPersona(this.personaRequest).subscribe(
+      (result: any) => {
+        this.ngOnInit();
+        Swal.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'actualizarPersona....',
+          text: '!Se actualizó exitosamente los datos de la persona!',
+        });
+      },
+      (err: any) => {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Advertencia....',
+          text: '!Ah ocurrido un error al actualizar persona!',
+        });
+      } //cierre del error
+    );
+  }
+
+  insertarPersona(): void {
     this.setPersonaRequest();
     console.log('personaRequest', this.personaRequest);
     Swal.fire({
@@ -134,6 +167,30 @@ export class RegistrarPersonaComponent {
             });
           } //cierre del error
         );
+      }
+    });
+  }
+  editarPersona(personaResponse: IPersonaResponse): void {
+    Swal.fire({
+      title: 'Esta seguro de editar la persona seleccionada?',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si',
+      focusCancel: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personaForm.patchValue({
+          idPersona: personaResponse.idPersona,
+          apellidoPaterno: personaResponse.apellidoPaterno,
+          apellidoMaterno: personaResponse.apellidoMaterno,
+          nombres: personaResponse.nombres,
+          fechaNacimiento: personaResponse.fechaNacimiento,
+          idTipoDocumento: personaResponse?.tipoDocumento?.idTipoDocumento,
+          ndocumento: personaResponse.ndocumento,
+          direccion: personaResponse.direccion,
+          idUbigeo: personaResponse?.ubigeo?.idUbigeo,
+        });
+        this.isEdited = true;
       }
     });
   }
