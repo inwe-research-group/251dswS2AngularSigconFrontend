@@ -65,13 +65,27 @@
               >Tipo Documento</label
             >
             <div class="col-sm-4">
-              <input
+              <select
+                class="form-control form-select"
+                aria-label="Default select example"
+                id="idTipoDocumento"
+                formControlName="idTipoDocumento"
+                (change)="setTipoDocumento($event)"
+              >
+                <option
+                  *ngFor="let tipodoc of tipoDocumentoArray"
+                  value="{{ tipodoc.idTipoDocumento }}"
+                >
+                  {{ tipodoc.descripcion }}
+                </option>
+              </select>
+              <!--<input
                 type="text"
                 class="form-control"
                 id="idTipoDocumento"
                 placeholder="tipoDocumento"
                 formControlName="idTipoDocumento"
-              />
+              />-->
             </div>
           </div>
           <div class="row mb-2">

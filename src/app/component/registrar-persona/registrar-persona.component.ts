@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IPersonaResponse } from '../../model/persona-response';
 import { PersonaService } from '../../service/persona.service';
+import { TipoDocumentoService } from './../../service/tipo-documento.service';
+import { UbigeoService } from './../../service/ubigeo.service';
+
 import {
   FormControl,
   FormGroup,
@@ -11,6 +14,8 @@ import {
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IPersonaRequest } from '../../model/persona-request';
 import Swal from 'sweetalert2';
+import { ITipoDocumento } from '../../model/tipo-documento';
+import { IUbigeo } from '../../model/ubigeo';
 
 @Component({
   selector: 'app-registrar-persona',
@@ -23,9 +28,15 @@ export class RegistrarPersonaComponent {
   personaArray: IPersonaResponse[] = [];
   personaRequest: IPersonaRequest = {} as IPersonaRequest;
   personaForm: FormGroup;
+  tipoDocumentoArray: ITipoDocumento[] = [];
+  ubigeoArray: IUbigeo[] = [];
   page: number = 1;
   isEdited: boolean = false;
-  constructor(private personaService: PersonaService) {
+  constructor(
+    private personaService: PersonaService,
+    private tipoDocumentoService: TipoDocumentoService,
+    private ubigeoService: UbigeoService
+  ) {
     this.personaForm = new FormGroup({
       idPersona: new FormControl(''),
       apellidoPaterno: new FormControl('', [
@@ -50,6 +61,7 @@ export class RegistrarPersonaComponent {
   ngOnInit(): void {
     this.isEdited = false;
     this.personaForm.reset();
+    this.getTipoDocumento();
     this.getPersonas();
     this.personaForm.controls['idTipoDocumento'].setValue(1);
     this.personaForm.controls['idUbigeo'].setValue('150101');
@@ -193,5 +205,24 @@ export class RegistrarPersonaComponent {
         this.isEdited = true;
       }
     });
+  }
+  getTipoDocumento(): void {
+    this.tipoDocumentoService.getTipoDocumento().subscribe(
+      (result: any) => {
+        this.tipoDocumentoArray = result;
+      },
+      (err: any) => {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Advertencia....',
+          text: '!Ah ocurrido un error al recuperar los Tipos de Documentos!',
+        });
+      } //cierre del error
+    );
+  }
+  setTipoDocumento(event: Event): void {
+    const inputChangeValue = (event.target as HTMLInputElement).value;
+    this.personaForm.controls['idTipoDocumento'].setValue(inputChangeValue);
   }
 }
