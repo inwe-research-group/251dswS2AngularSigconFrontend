@@ -62,6 +62,7 @@ export class RegistrarPersonaComponent {
     this.isEdited = false;
     this.personaForm.reset();
     this.getTipoDocumento();
+    this.getUbigeo();
     this.getPersonas();
     this.personaForm.controls['idTipoDocumento'].setValue(1);
     this.personaForm.controls['idUbigeo'].setValue('150101');
@@ -224,5 +225,24 @@ export class RegistrarPersonaComponent {
   setTipoDocumento(event: Event): void {
     const inputChangeValue = (event.target as HTMLInputElement).value;
     this.personaForm.controls['idTipoDocumento'].setValue(inputChangeValue);
+  }
+  getUbigeo(): void {
+    this.ubigeoService.getUbigeo().subscribe(
+      (result: any) => {
+        this.ubigeoArray = result;
+      },
+      (err: any) => {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Advertencia....',
+          text: '!Ah ocurrido un error al recuperar Ubigeos',
+        });
+      }
+    );
+  }
+  setUbigeo(event: Event): void {
+    const inputChangeValue = (event.target as HTMLInputElement).value;
+    this.personaForm.controls['idUbigeo'].setValue(inputChangeValue);
   }
 }
